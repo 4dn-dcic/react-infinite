@@ -369,21 +369,21 @@ Infinite.recomputeInternalStateFromProps = function (props) {
   };
 };
 
-Infinite.infiniteHandleScroll = function (e) {
-  var utils = ReactInfiniteUtilityFunctions;
-  if (utils.scrollShouldBeIgnored(e)) {
-    return;
-  }
-  undefined.computedProps.handleScroll(undefined.scrollable);
-  undefined.handleScroll(utils.getScrollTop());
-};
-
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.shouldAttachToBottom = false;
   this.preservedScrollState = 0;
   this.loadingSpinnerHeight = 0;
+
+  this.infiniteHandleScroll = function (e) {
+    var utils;
+    if (utils.scrollShouldBeIgnored(e)) {
+      return;
+    }
+    _this3.computedProps.handleScroll(_this3.scrollable);
+    _this3.handleScroll(utils.getScrollTop());
+  };
 
   this.manageScrollTimeouts = function () {
     // Maintains a series of timeouts to set this.state.isScrolling

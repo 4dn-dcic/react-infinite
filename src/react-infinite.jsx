@@ -327,8 +327,8 @@ class Infinite extends React.Component<
     this.utils.unsubscribeFromScrollListener();
   }
 
-  static infiniteHandleScroll = (e: SyntheticEvent) => {
-    var utils = ReactInfiniteUtilityFunctions;
+  infiniteHandleScroll = (e: SyntheticEvent) => {
+    var utils: ReactInfiniteUtilityFunctions
     if (utils.scrollShouldBeIgnored(e)) {
       return;
     }
