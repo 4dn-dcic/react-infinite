@@ -351,7 +351,6 @@ var _initialiseProps = function _initialiseProps() {
     var utils = _this3.generateComputedUtilityFunctions(props);
 
     var newState = {};
-    console.log('xxxx geldim', props);
     newState.numberOfChildren = React.Children.count(computedProps.children);
     newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
 
@@ -364,6 +363,9 @@ var _initialiseProps = function _initialiseProps() {
 
     newState = Object.assign(newState, infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(newState, utils.getScrollTop()));
 
+    console.log('xxxx newState', newState);
+    console.log('xxxx utils', utils);
+    console.log('xxxx computedProps', computedProps);
     return {
       computedProps: computedProps,
       utils: utils,

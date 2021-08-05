@@ -206,7 +206,6 @@ class Infinite extends React.Component<
     );
 
     var newState = {};
-    console.log('xxxx geldim', props);
     newState.numberOfChildren = React.Children.count(computedProps.children);
     newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(
       computedProps.elementHeight,
@@ -228,6 +227,9 @@ class Infinite extends React.Component<
       )
     );
 
+    console.log('xxxx newState', newState);
+    console.log('xxxx utils', utils);
+    console.log('xxxx computedProps', computedProps);
     return {
       computedProps,
       utils,
