@@ -66,17 +66,6 @@ var Infinite = function (_React$Component) {
 
   _createClass(Infinite, [{
     key: 'UNSAFE_componentWillUpdate',
-
-
-    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-
-    //   this.computedProps = nextInternalState.computedProps;
-    //   this.utils = nextInternalState.utils;
-
-    //   this.setState(nextInternalState.newState);
-    // }
-
     value: function UNSAFE_componentWillUpdate() {
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -215,6 +204,16 @@ var Infinite = function (_React$Component) {
           })
         )
       );
+    }
+  }], [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+
+      this.setState(nextInternalState.newState);
     }
   }]);
 

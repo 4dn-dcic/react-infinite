@@ -235,14 +235,14 @@ class Infinite extends React.Component<
     };
   };
 
-  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-  //   this.computedProps = nextInternalState.computedProps;
-  //   this.utils = nextInternalState.utils;
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
 
-  //   this.setState(nextInternalState.newState);
-  // }
+    this.setState(nextInternalState.newState);
+  }
 
   UNSAFE_componentWillUpdate() {
     if (this.props.displayBottomUpwards) {
