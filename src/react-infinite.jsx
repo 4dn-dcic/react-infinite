@@ -148,10 +148,10 @@ class Infinite extends React.Component<
     };
     if (props.useWindowAsScrollContainer) {
       utilities.subscribeToScrollListener = () => {
-        window.addEventListener('scroll', this.infiniteHandleScroll);
+        window.addEventListener('scroll', Infinite.infiniteHandleScroll);
       };
       utilities.unsubscribeFromScrollListener = () => {
-        window.removeEventListener('scroll', this.infiniteHandleScroll);
+        window.removeEventListener('scroll', Infinite.infiniteHandleScroll);
       };
       utilities.nodeScrollListener = () => {};
       utilities.getScrollTop = () => window.pageYOffset;
@@ -163,7 +163,7 @@ class Infinite extends React.Component<
     } else {
       utilities.subscribeToScrollListener = () => {};
       utilities.unsubscribeFromScrollListener = () => {};
-      utilities.nodeScrollListener = this.infiniteHandleScroll;
+      utilities.nodeScrollListener = Infinite.infiniteHandleScroll;
       utilities.getScrollTop = () => {
         return this.scrollable ? this.scrollable.scrollTop : 0;
       };
@@ -326,7 +326,7 @@ class Infinite extends React.Component<
     this.utils.unsubscribeFromScrollListener();
   }
 
-  infiniteHandleScroll = (e: SyntheticEvent) => {
+  static infiniteHandleScroll = (e: SyntheticEvent) => {
     if (this.utils.scrollShouldBeIgnored(e)) {
       return;
     }

@@ -292,10 +292,10 @@ Infinite.generateComputedUtilityFunctions = function (props) {
   };
   if (props.useWindowAsScrollContainer) {
     utilities.subscribeToScrollListener = function () {
-      window.addEventListener('scroll', undefined.infiniteHandleScroll);
+      window.addEventListener('scroll', Infinite.infiniteHandleScroll);
     };
     utilities.unsubscribeFromScrollListener = function () {
-      window.removeEventListener('scroll', undefined.infiniteHandleScroll);
+      window.removeEventListener('scroll', Infinite.infiniteHandleScroll);
     };
     utilities.nodeScrollListener = function () {};
     utilities.getScrollTop = function () {
@@ -313,7 +313,7 @@ Infinite.generateComputedUtilityFunctions = function (props) {
   } else {
     utilities.subscribeToScrollListener = function () {};
     utilities.unsubscribeFromScrollListener = function () {};
-    utilities.nodeScrollListener = undefined.infiniteHandleScroll;
+    utilities.nodeScrollListener = Infinite.infiniteHandleScroll;
     utilities.getScrollTop = function () {
       return undefined.scrollable ? undefined.scrollable.scrollTop : 0;
     };
@@ -367,20 +367,20 @@ Infinite.recomputeInternalStateFromProps = function (props) {
   };
 };
 
+Infinite.infiniteHandleScroll = function (e) {
+  if (undefined.utils.scrollShouldBeIgnored(e)) {
+    return;
+  }
+  undefined.computedProps.handleScroll(undefined.scrollable);
+  undefined.handleScroll(undefined.utils.getScrollTop());
+};
+
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.shouldAttachToBottom = false;
   this.preservedScrollState = 0;
   this.loadingSpinnerHeight = 0;
-
-  this.infiniteHandleScroll = function (e) {
-    if (_this3.utils.scrollShouldBeIgnored(e)) {
-      return;
-    }
-    _this3.computedProps.handleScroll(_this3.scrollable);
-    _this3.handleScroll(_this3.utils.getScrollTop());
-  };
 
   this.manageScrollTimeouts = function () {
     // Maintains a series of timeouts to set this.state.isScrolling
