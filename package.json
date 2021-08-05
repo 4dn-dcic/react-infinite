@@ -1,6 +1,6 @@
 {
-  "name": "ugur-react-infinite1",
-  "version": "0.13.0",
+  "name": "react-infinite",
+  "version": "0.14.0",
   "description": "A browser-ready efficient scrolling container based on UITableView",
   "main": "build/react-infinite.js",
   "repository": {
