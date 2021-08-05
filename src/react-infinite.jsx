@@ -244,7 +244,7 @@ class Infinite extends React.Component<
       // this.computedProps = nextInternalState.computedProps;
       // this.utils = nextInternalState.utils;
 
-      this.setState(nextInternalState.newState);
+      this.state(nextInternalState.newState);
     }
   }
 
