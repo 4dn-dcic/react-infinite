@@ -43,7 +43,7 @@ var Infinite = function (_React$Component) {
 
     _initialiseProps.call(_this);
 
-    var nextInternalState = _this.recomputeInternalStateFromProps(props);
+    var nextInternalState = Infinite.recomputeInternalStateFromProps(props);
 
     _this.computedProps = nextInternalState.computedProps;
     _this.utils = nextInternalState.utils;
@@ -202,7 +202,7 @@ var Infinite = function (_React$Component) {
     key: 'getDerivedStateFromProps',
     value: function getDerivedStateFromProps(nextProps, prevState) {
       if (nextProps) {
-        var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+        var nextInternalState = Infinite.recomputeInternalStateFromProps(nextProps);
         console.log('xxxx nextInternalState', nextInternalState);
         this.computedProps = nextInternalState.computedProps;
         this.utils = nextInternalState.utils;
@@ -280,6 +280,34 @@ Infinite.defaultProps = {
   styles: {}
 };
 
+Infinite.recomputeInternalStateFromProps = function (props) {
+  checkProps(props);
+  var computedProps = infiniteHelpers.generateComputedProps(props);
+  var utils = undefined.generateComputedUtilityFunctions(props);
+
+  var newState = {};
+  newState.numberOfChildren = React.Children.count(computedProps.children);
+  newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
+
+  if (computedProps.isInfiniteLoading !== undefined) {
+    newState.isInfiniteLoading = computedProps.isInfiniteLoading;
+  }
+
+  newState.preloadBatchSize = computedProps.preloadBatchSize;
+  newState.preloadAdditionalHeight = computedProps.preloadAdditionalHeight;
+
+  newState = Object.assign(newState, infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(newState, utils.getScrollTop()));
+
+  console.log('xxxx newState', newState);
+  console.log('xxxx utils', utils);
+  console.log('xxxx computedProps', computedProps);
+  return {
+    computedProps: computedProps,
+    utils: utils,
+    newState: newState
+  };
+};
+
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
@@ -343,34 +371,6 @@ var _initialiseProps = function _initialiseProps() {
       };
     }
     return utilities;
-  };
-
-  this.recomputeInternalStateFromProps = function (props) {
-    checkProps(props);
-    var computedProps = infiniteHelpers.generateComputedProps(props);
-    var utils = _this3.generateComputedUtilityFunctions(props);
-
-    var newState = {};
-    newState.numberOfChildren = React.Children.count(computedProps.children);
-    newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
-
-    if (computedProps.isInfiniteLoading !== undefined) {
-      newState.isInfiniteLoading = computedProps.isInfiniteLoading;
-    }
-
-    newState.preloadBatchSize = computedProps.preloadBatchSize;
-    newState.preloadAdditionalHeight = computedProps.preloadAdditionalHeight;
-
-    newState = Object.assign(newState, infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(newState, utils.getScrollTop()));
-
-    console.log('xxxx newState', newState);
-    console.log('xxxx utils', utils);
-    console.log('xxxx computedProps', computedProps);
-    return {
-      computedProps: computedProps,
-      utils: utils,
-      newState: newState
-    };
   };
 
   this.infiniteHandleScroll = function (e) {

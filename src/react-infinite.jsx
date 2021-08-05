@@ -106,7 +106,7 @@ class Infinite extends React.Component<
 
   constructor(props: ReactInfiniteProps) {
     super(props);
-    const nextInternalState = this.recomputeInternalStateFromProps(props);
+    const nextInternalState = Infinite.recomputeInternalStateFromProps(props);
 
     this.computedProps = nextInternalState.computedProps;
     this.utils = nextInternalState.utils;
@@ -192,7 +192,7 @@ class Infinite extends React.Component<
     return utilities;
   };
 
-  recomputeInternalStateFromProps = (
+  static recomputeInternalStateFromProps = (
     props: ReactInfiniteProps
   ): {
     computedProps: ReactInfiniteComputedProps,
@@ -239,7 +239,7 @@ class Infinite extends React.Component<
 
   static getDerivedStateFromProps(nextProps: ReactInfiniteProps, prevState) {
     if (nextProps) {
-      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      var nextInternalState =Infinite.recomputeInternalStateFromProps(nextProps);
       console.log('xxxx nextInternalState', nextInternalState);
       this.computedProps = nextInternalState.computedProps;
       this.utils = nextInternalState.utils;
