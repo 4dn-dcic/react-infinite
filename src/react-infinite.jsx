@@ -289,14 +289,6 @@ class Infinite extends React.Component<
       );
       this.setState(newApertureState);
     }
-    else{
-      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
-
-    this.setState(nextInternalState.newState);
-    }
 
     const isMissingVisibleRows =
       hasLoadedMoreChildren &&
