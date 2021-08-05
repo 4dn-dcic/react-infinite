@@ -235,7 +235,7 @@ class Infinite extends React.Component<
     };
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps: ReactInfiniteProps, prevState) {
     var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
     this.computedProps = nextInternalState.computedProps;
