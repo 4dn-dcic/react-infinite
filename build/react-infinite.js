@@ -201,10 +201,9 @@ var Infinite = function (_React$Component) {
   }], [{
     key: 'getDerivedStateFromProps',
     value: function getDerivedStateFromProps(nextProps, prevState) {
-      console.log('xxxx nextProps', nextProps);
       if (nextProps) {
         var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-
+        console.log('xxxx nextInternalState', nextInternalState);
         this.computedProps = nextInternalState.computedProps;
         this.utils = nextInternalState.utils;
 
