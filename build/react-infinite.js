@@ -352,7 +352,7 @@ var _initialiseProps = function _initialiseProps() {
     var utils = _this3.generateComputedUtilityFunctions(props);
 
     var newState = {};
-
+    console.log('xxxx geldim', props);
     newState.numberOfChildren = React.Children.count(computedProps.children);
     newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
 
