@@ -235,14 +235,14 @@ class Infinite extends React.Component<
     };
   };
 
-  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
+  //   this.computedProps = nextInternalState.computedProps;
+  //   this.utils = nextInternalState.utils;
 
-    this.setState(nextInternalState.newState);
-  }
+  //   this.setState(nextInternalState.newState);
+  // }
 
   UNSAFE_componentWillUpdate() {
     if (this.props.displayBottomUpwards) {
@@ -288,6 +288,14 @@ class Infinite extends React.Component<
         this.utils.getScrollTop()
       );
       this.setState(newApertureState);
+    }
+    else{
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+
+    this.setState(nextInternalState.newState);
     }
 
     const isMissingVisibleRows =
