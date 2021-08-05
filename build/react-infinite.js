@@ -370,11 +370,12 @@ Infinite.recomputeInternalStateFromProps = function (props) {
 };
 
 Infinite.infiniteHandleScroll = function (e) {
-  if (undefined.utils.scrollShouldBeIgnored(e)) {
+  var utils = ReactInfiniteUtilityFunctions;
+  if (utils.scrollShouldBeIgnored(e)) {
     return;
   }
   undefined.computedProps.handleScroll(undefined.scrollable);
-  undefined.handleScroll(undefined.utils.getScrollTop());
+  undefined.handleScroll(utils.getScrollTop());
 };
 
 var _initialiseProps = function _initialiseProps() {

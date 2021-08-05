@@ -328,11 +328,12 @@ class Infinite extends React.Component<
   }
 
   static infiniteHandleScroll = (e: SyntheticEvent) => {
-    if (this.utils.scrollShouldBeIgnored(e)) {
+    var utils = ReactInfiniteUtilityFunctions;
+    if (utils.scrollShouldBeIgnored(e)) {
       return;
     }
     this.computedProps.handleScroll(this.scrollable);
-    this.handleScroll(this.utils.getScrollTop());
+    this.handleScroll(utils.getScrollTop());
   };
 
   manageScrollTimeouts = () => {
