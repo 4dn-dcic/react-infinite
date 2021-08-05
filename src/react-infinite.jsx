@@ -236,12 +236,15 @@ class Infinite extends React.Component<
   };
 
   static getDerivedStateFromProps(nextProps: ReactInfiniteProps, prevState) {
-    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    console.log('xxxx nextProps', nextProps);
+    if (nextProps) {
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
 
-    this.setState(nextInternalState.newState);
+      this.setState(nextInternalState.newState);
+    }
   }
 
   UNSAFE_componentWillUpdate() {
