@@ -133,16 +133,17 @@ class Infinite extends React.Component<
   topSpacer: HTMLDivElement;
   bottomSpacer: HTMLDivElement;
   smoothScrollingWrapper: HTMLDivElement;
-  loadingSpinner: HTMLDivElement;
 
   static generateComputedUtilityFunctions = (
     props: ReactInfiniteProps
   ): ReactInfiniteUtilityFunctions => {
     var utilities = {};
+    var loadingSpinner= HTMLDivElement;
+
     utilities.getLoadingSpinnerHeight = () => {
       var loadingSpinnerHeight = 0;
-      if (this.loadingSpinner) {
-        loadingSpinnerHeight = this.loadingSpinner.offsetHeight || 0;
+      if (loadingSpinner) {
+        loadingSpinnerHeight = loadingSpinner.offsetHeight || 0;
       }
       return loadingSpinnerHeight;
     };

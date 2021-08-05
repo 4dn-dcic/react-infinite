@@ -283,10 +283,12 @@ Infinite.defaultProps = {
 
 Infinite.generateComputedUtilityFunctions = function (props) {
   var utilities = {};
+  var loadingSpinner = HTMLDivElement;
+
   utilities.getLoadingSpinnerHeight = function () {
     var loadingSpinnerHeight = 0;
-    if (undefined.loadingSpinner) {
-      loadingSpinnerHeight = undefined.loadingSpinner.offsetHeight || 0;
+    if (loadingSpinner) {
+      loadingSpinnerHeight = loadingSpinner.offsetHeight || 0;
     }
     return loadingSpinnerHeight;
   };
