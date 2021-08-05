@@ -135,7 +135,7 @@ class Infinite extends React.Component<
   smoothScrollingWrapper: HTMLDivElement;
   loadingSpinner: HTMLDivElement;
 
-  generateComputedUtilityFunctions = (
+  static generateComputedUtilityFunctions = (
     props: ReactInfiniteProps
   ): ReactInfiniteUtilityFunctions => {
     var utilities = {};
@@ -201,7 +201,7 @@ class Infinite extends React.Component<
   } => {
     checkProps(props);
     var computedProps = infiniteHelpers.generateComputedProps(props);
-    var utils: ReactInfiniteUtilityFunctions = this.generateComputedUtilityFunctions(
+    var utils: ReactInfiniteUtilityFunctions = Infinite.generateComputedUtilityFunctions(
       props
     );
 

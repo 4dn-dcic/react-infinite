@@ -280,10 +280,68 @@ Infinite.defaultProps = {
   styles: {}
 };
 
+Infinite.generateComputedUtilityFunctions = function (props) {
+  var utilities = {};
+  utilities.getLoadingSpinnerHeight = function () {
+    var loadingSpinnerHeight = 0;
+    if (undefined.loadingSpinner) {
+      loadingSpinnerHeight = undefined.loadingSpinner.offsetHeight || 0;
+    }
+    return loadingSpinnerHeight;
+  };
+  if (props.useWindowAsScrollContainer) {
+    utilities.subscribeToScrollListener = function () {
+      window.addEventListener('scroll', undefined.infiniteHandleScroll);
+    };
+    utilities.unsubscribeFromScrollListener = function () {
+      window.removeEventListener('scroll', undefined.infiniteHandleScroll);
+    };
+    utilities.nodeScrollListener = function () {};
+    utilities.getScrollTop = function () {
+      return window.pageYOffset;
+    };
+    utilities.setScrollTop = function (top) {
+      window.scroll(window.pageXOffset, top);
+    };
+    utilities.scrollShouldBeIgnored = function () {
+      return false;
+    };
+    utilities.buildScrollableStyle = function () {
+      return {};
+    };
+  } else {
+    utilities.subscribeToScrollListener = function () {};
+    utilities.unsubscribeFromScrollListener = function () {};
+    utilities.nodeScrollListener = undefined.infiniteHandleScroll;
+    utilities.getScrollTop = function () {
+      return undefined.scrollable ? undefined.scrollable.scrollTop : 0;
+    };
+
+    utilities.setScrollTop = function (top) {
+      if (undefined.scrollable) {
+        undefined.scrollable.scrollTop = top;
+      }
+    };
+    utilities.scrollShouldBeIgnored = function (event) {
+      return event.target !== undefined.scrollable;
+    };
+
+    utilities.buildScrollableStyle = function () {
+      return Object.assign({}, {
+        height: undefined.computedProps.containerHeight,
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+        WebkitOverflowScrolling: 'touch'
+      }, undefined.computedProps.styles.scrollableStyle || {});
+    };
+  }
+  return utilities;
+};
+
 Infinite.recomputeInternalStateFromProps = function (props) {
   checkProps(props);
   var computedProps = infiniteHelpers.generateComputedProps(props);
-  var utils = undefined.generateComputedUtilityFunctions(props);
+  var utils = Infinite.generateComputedUtilityFunctions(props);
 
   var newState = {};
   newState.numberOfChildren = React.Children.count(computedProps.children);
@@ -314,64 +372,6 @@ var _initialiseProps = function _initialiseProps() {
   this.shouldAttachToBottom = false;
   this.preservedScrollState = 0;
   this.loadingSpinnerHeight = 0;
-
-  this.generateComputedUtilityFunctions = function (props) {
-    var utilities = {};
-    utilities.getLoadingSpinnerHeight = function () {
-      var loadingSpinnerHeight = 0;
-      if (_this3.loadingSpinner) {
-        loadingSpinnerHeight = _this3.loadingSpinner.offsetHeight || 0;
-      }
-      return loadingSpinnerHeight;
-    };
-    if (props.useWindowAsScrollContainer) {
-      utilities.subscribeToScrollListener = function () {
-        window.addEventListener('scroll', _this3.infiniteHandleScroll);
-      };
-      utilities.unsubscribeFromScrollListener = function () {
-        window.removeEventListener('scroll', _this3.infiniteHandleScroll);
-      };
-      utilities.nodeScrollListener = function () {};
-      utilities.getScrollTop = function () {
-        return window.pageYOffset;
-      };
-      utilities.setScrollTop = function (top) {
-        window.scroll(window.pageXOffset, top);
-      };
-      utilities.scrollShouldBeIgnored = function () {
-        return false;
-      };
-      utilities.buildScrollableStyle = function () {
-        return {};
-      };
-    } else {
-      utilities.subscribeToScrollListener = function () {};
-      utilities.unsubscribeFromScrollListener = function () {};
-      utilities.nodeScrollListener = _this3.infiniteHandleScroll;
-      utilities.getScrollTop = function () {
-        return _this3.scrollable ? _this3.scrollable.scrollTop : 0;
-      };
-
-      utilities.setScrollTop = function (top) {
-        if (_this3.scrollable) {
-          _this3.scrollable.scrollTop = top;
-        }
-      };
-      utilities.scrollShouldBeIgnored = function (event) {
-        return event.target !== _this3.scrollable;
-      };
-
-      utilities.buildScrollableStyle = function () {
-        return Object.assign({}, {
-          height: _this3.computedProps.containerHeight,
-          overflowX: 'hidden',
-          overflowY: 'scroll',
-          WebkitOverflowScrolling: 'touch'
-        }, _this3.computedProps.styles.scrollableStyle || {});
-      };
-    }
-    return utilities;
-  };
 
   this.infiniteHandleScroll = function (e) {
     if (_this3.utils.scrollShouldBeIgnored(e)) {
