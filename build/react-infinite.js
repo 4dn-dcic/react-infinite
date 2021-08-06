@@ -93,7 +93,6 @@ var Infinite = function (_React$Component) {
       this.utils = nextInternalState.utils;
       console.log('xxxx computedProps test', this.computedProps);
       console.log('xxxx utils test', this.utils);
-      this.setState(nextInternalState.newState);
 
       if (!prevProps.useWindowAsScrollContainer && this.props.useWindowAsScrollContainer) {
         this.utils.subscribeToScrollListener();
@@ -120,6 +119,7 @@ var Infinite = function (_React$Component) {
       }
 
       console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
+      this.setState(nextInternalState.newState);
     }
   }, {
     key: 'componentDidMount',

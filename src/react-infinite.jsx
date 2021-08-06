@@ -263,7 +263,6 @@ class Infinite extends React.Component<
     this.utils = nextInternalState.utils;
     console.log('xxxx computedProps test', this.computedProps);
     console.log('xxxx utils test', this.utils);
-    this.setState(nextInternalState.newState);
 
     if (
       !prevProps.useWindowAsScrollContainer &&
@@ -307,6 +306,7 @@ class Infinite extends React.Component<
     }
 
     console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
+    this.setState(nextInternalState.newState);
   }
 
   componentDidMount() {
