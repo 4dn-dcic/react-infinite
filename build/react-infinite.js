@@ -111,6 +111,7 @@ var Infinite = function (_React$Component) {
       if (hasLoadedMoreChildren) {
         var newApertureState = infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(this.state, this.utils.getScrollTop());
         this.setState(newApertureState);
+      } else {
         this.setState(nextInternalState.newState);
       }
       console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);

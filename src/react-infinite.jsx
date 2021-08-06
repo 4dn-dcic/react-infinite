@@ -295,6 +295,7 @@ class Infinite extends React.Component<
         this.utils.getScrollTop()
       );
       this.setState(newApertureState);
+    } else {
       this.setState(nextInternalState.newState);
     }
     console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
