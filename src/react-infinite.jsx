@@ -295,6 +295,7 @@ class Infinite extends React.Component<
         this.utils.getScrollTop()
       );
       this.setState(newApertureState);
+      this.setState(nextInternalState.newState);
     }
     console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
     const isMissingVisibleRows =
@@ -306,7 +307,6 @@ class Infinite extends React.Component<
     }
 
     console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
-    this.setState(nextInternalState.newState);
   }
 
   componentDidMount() {

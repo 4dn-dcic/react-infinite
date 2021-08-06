@@ -111,6 +111,7 @@ var Infinite = function (_React$Component) {
       if (hasLoadedMoreChildren) {
         var newApertureState = infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(this.state, this.utils.getScrollTop());
         this.setState(newApertureState);
+        this.setState(nextInternalState.newState);
       }
       console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
@@ -119,7 +120,6 @@ var Infinite = function (_React$Component) {
       }
 
       console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
-      this.setState(nextInternalState.newState);
     }
   }, {
     key: 'componentDidMount',
