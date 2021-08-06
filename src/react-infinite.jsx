@@ -235,15 +235,15 @@ class Infinite extends React.Component<
     };
   };
 
-  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
-    console.log('xxxx computedProps', this.computedProps);
-    console.log('xxxx utils', this.utils);
-    this.setState(nextInternalState.newState);
-  }
+  //   this.computedProps = nextInternalState.computedProps;
+  //   this.utils = nextInternalState.utils;
+  //   console.log('xxxx computedProps', this.computedProps);
+  //   console.log('xxxx utils', this.utils);
+  //   this.setState(nextInternalState.newState);
+  // }
 
   UNSAFE_componentWillUpdate() {
     if (this.props.displayBottomUpwards) {
@@ -266,6 +266,14 @@ class Infinite extends React.Component<
     }
 
     if (this.props.displayBottomUpwards) {
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx computedProps test', this.computedProps);
+      console.log('xxxx utils test', this.utils);
+      this.setState(nextInternalState.newState);
+
       var lowestScrollTop = this.getLowestPossibleScrollTop();
       if (
         this.shouldAttachToBottom &&

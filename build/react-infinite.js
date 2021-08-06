@@ -65,18 +65,19 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'UNSAFE_componentWillReceiveProps',
-    value: function UNSAFE_componentWillReceiveProps(nextProps) {
-      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      console.log('xxxx computedProps', this.computedProps);
-      console.log('xxxx utils', this.utils);
-      this.setState(nextInternalState.newState);
-    }
-  }, {
     key: 'UNSAFE_componentWillUpdate',
+
+
+    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+
+    //   this.computedProps = nextInternalState.computedProps;
+    //   this.utils = nextInternalState.utils;
+    //   console.log('xxxx computedProps', this.computedProps);
+    //   console.log('xxxx utils', this.utils);
+    //   this.setState(nextInternalState.newState);
+    // }
+
     value: function UNSAFE_componentWillUpdate() {
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -92,6 +93,14 @@ var Infinite = function (_React$Component) {
       }
 
       if (this.props.displayBottomUpwards) {
+        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        console.log('xxxx computedProps test', this.computedProps);
+        console.log('xxxx utils test', this.utils);
+        this.setState(nextInternalState.newState);
+
         var lowestScrollTop = this.getLowestPossibleScrollTop();
         if (this.shouldAttachToBottom && this.utils.getScrollTop() < lowestScrollTop) {
           this.utils.setScrollTop(lowestScrollTop);
