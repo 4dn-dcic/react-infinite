@@ -87,20 +87,19 @@ var Infinite = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx computedProps test', this.computedProps);
+      console.log('xxxx utils test', this.utils);
+      this.setState(nextInternalState.newState);
 
       if (!prevProps.useWindowAsScrollContainer && this.props.useWindowAsScrollContainer) {
         this.utils.subscribeToScrollListener();
       }
 
       if (this.props.displayBottomUpwards) {
-        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-
-        this.computedProps = nextInternalState.computedProps;
-        this.utils = nextInternalState.utils;
-        console.log('xxxx computedProps test', this.computedProps);
-        console.log('xxxx utils test', this.utils);
-        this.setState(nextInternalState.newState);
-
         var lowestScrollTop = this.getLowestPossibleScrollTop();
         if (this.shouldAttachToBottom && this.utils.getScrollTop() < lowestScrollTop) {
           this.utils.setScrollTop(lowestScrollTop);

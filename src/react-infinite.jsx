@@ -257,6 +257,13 @@ class Infinite extends React.Component<
     prevState: ReactInfiniteState
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+    var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    console.log('xxxx computedProps test', this.computedProps);
+    console.log('xxxx utils test', this.utils);
+    this.setState(nextInternalState.newState);
 
     if (
       !prevProps.useWindowAsScrollContainer &&
@@ -266,14 +273,6 @@ class Infinite extends React.Component<
     }
 
     if (this.props.displayBottomUpwards) {
-      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      console.log('xxxx computedProps test', this.computedProps);
-      console.log('xxxx utils test', this.utils);
-      this.setState(nextInternalState.newState);
-
       var lowestScrollTop = this.getLowestPossibleScrollTop();
       if (
         this.shouldAttachToBottom &&
