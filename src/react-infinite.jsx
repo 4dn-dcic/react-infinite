@@ -106,7 +106,7 @@ class Infinite extends React.Component<
 
   constructor(props: ReactInfiniteProps) {
     super(props);
-    const nextInternalState = Infinite.recomputeInternalStateFromProps(props);
+    const nextInternalState = this.recomputeInternalStateFromProps(props);
 
     this.computedProps = nextInternalState.computedProps;
     this.utils = nextInternalState.utils;
@@ -133,26 +133,25 @@ class Infinite extends React.Component<
   topSpacer: HTMLDivElement;
   bottomSpacer: HTMLDivElement;
   smoothScrollingWrapper: HTMLDivElement;
+  loadingSpinner: HTMLDivElement;
 
-  static generateComputedUtilityFunctions = (
+  generateComputedUtilityFunctions = (
     props: ReactInfiniteProps
   ): ReactInfiniteUtilityFunctions => {
     var utilities = {};
-    var loadingSpinner= HTMLDivElement;
-
     utilities.getLoadingSpinnerHeight = () => {
       var loadingSpinnerHeight = 0;
-      if (loadingSpinner) {
-        loadingSpinnerHeight = loadingSpinner.offsetHeight || 0;
+      if (this.loadingSpinner) {
+        loadingSpinnerHeight = this.loadingSpinner.offsetHeight || 0;
       }
       return loadingSpinnerHeight;
     };
     if (props.useWindowAsScrollContainer) {
       utilities.subscribeToScrollListener = () => {
-        window.addEventListener('scroll', Infinite.infiniteHandleScroll);
+        window.addEventListener('scroll', this.infiniteHandleScroll);
       };
       utilities.unsubscribeFromScrollListener = () => {
-        window.removeEventListener('scroll', Infinite.infiniteHandleScroll);
+        window.removeEventListener('scroll', this.infiniteHandleScroll);
       };
       utilities.nodeScrollListener = () => {};
       utilities.getScrollTop = () => window.pageYOffset;
@@ -164,7 +163,7 @@ class Infinite extends React.Component<
     } else {
       utilities.subscribeToScrollListener = () => {};
       utilities.unsubscribeFromScrollListener = () => {};
-      utilities.nodeScrollListener = Infinite.infiniteHandleScroll;
+      utilities.nodeScrollListener = this.infiniteHandleScroll;
       utilities.getScrollTop = () => {
         return this.scrollable ? this.scrollable.scrollTop : 0;
       };
@@ -193,7 +192,7 @@ class Infinite extends React.Component<
     return utilities;
   };
 
-  static recomputeInternalStateFromProps = (
+  recomputeInternalStateFromProps = (
     props: ReactInfiniteProps
   ): {
     computedProps: ReactInfiniteComputedProps,
@@ -202,11 +201,12 @@ class Infinite extends React.Component<
   } => {
     checkProps(props);
     var computedProps = infiniteHelpers.generateComputedProps(props);
-    var utils: ReactInfiniteUtilityFunctions = Infinite.generateComputedUtilityFunctions(
+    var utils: ReactInfiniteUtilityFunctions = this.generateComputedUtilityFunctions(
       props
     );
 
     var newState = {};
+
     newState.numberOfChildren = React.Children.count(computedProps.children);
     newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(
       computedProps.elementHeight,
@@ -228,9 +228,6 @@ class Infinite extends React.Component<
       )
     );
 
-    console.log('xxxx newState', newState);
-    console.log('xxxx utils', utils);
-    console.log('xxxx computedProps', computedProps);
     return {
       computedProps,
       utils,
@@ -238,16 +235,14 @@ class Infinite extends React.Component<
     };
   };
 
-  static getDerivedStateFromProps(nextProps: ReactInfiniteProps, prevState) {
-    if (nextProps) {
-      var nextInternalState =Infinite.recomputeInternalStateFromProps(nextProps);
-      console.log('xxxx nextInternalState', nextInternalState);
-      // this.computedProps = nextInternalState.computedProps;
-      // this.utils = nextInternalState.utils;
+  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-      // this.state(nextInternalState.newState);
-      return nextInternalState.newState; //
-    }
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    console.log('xxxx computedProps', this.computedProps);
+    console.log('xxxx utils', this.utils);
+    this.setState(nextInternalState.newState);
   }
 
   UNSAFE_componentWillUpdate() {
@@ -295,7 +290,7 @@ class Infinite extends React.Component<
       );
       this.setState(newApertureState);
     }
-
+    console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
     const isMissingVisibleRows =
       hasLoadedMoreChildren &&
       !this.hasAllVisibleItems() &&
@@ -303,6 +298,8 @@ class Infinite extends React.Component<
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
     }
+
+    console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
   }
 
   componentDidMount() {
@@ -328,12 +325,11 @@ class Infinite extends React.Component<
   }
 
   infiniteHandleScroll = (e: SyntheticEvent) => {
-    var utils: ReactInfiniteUtilityFunctions
-    if (utils.scrollShouldBeIgnored(e)) {
+    if (this.utils.scrollShouldBeIgnored(e)) {
       return;
     }
     this.computedProps.handleScroll(this.scrollable);
-    this.handleScroll(utils.getScrollTop());
+    this.handleScroll(this.utils.getScrollTop());
   };
 
   manageScrollTimeouts = () => {

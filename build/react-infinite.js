@@ -43,7 +43,7 @@ var Infinite = function (_React$Component) {
 
     _initialiseProps.call(_this);
 
-    var nextInternalState = Infinite.recomputeInternalStateFromProps(props);
+    var nextInternalState = _this.recomputeInternalStateFromProps(props);
 
     _this.computedProps = nextInternalState.computedProps;
     _this.utils = nextInternalState.utils;
@@ -65,6 +65,17 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
+    key: 'UNSAFE_componentWillReceiveProps',
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx computedProps', this.computedProps);
+      console.log('xxxx utils', this.utils);
+      this.setState(nextInternalState.newState);
+    }
+  }, {
     key: 'UNSAFE_componentWillUpdate',
     value: function UNSAFE_componentWillUpdate() {
       if (this.props.displayBottomUpwards) {
@@ -94,11 +105,13 @@ var Infinite = function (_React$Component) {
         var newApertureState = infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(this.state, this.utils.getScrollTop());
         this.setState(newApertureState);
       }
-
+      console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
       }
+
+      console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
     }
   }, {
     key: 'componentDidMount',
@@ -198,19 +211,6 @@ var Infinite = function (_React$Component) {
         )
       );
     }
-  }], [{
-    key: 'getDerivedStateFromProps',
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      if (nextProps) {
-        var nextInternalState = Infinite.recomputeInternalStateFromProps(nextProps);
-        console.log('xxxx nextInternalState', nextInternalState);
-        // this.computedProps = nextInternalState.computedProps;
-        // this.utils = nextInternalState.utils;
-
-        // this.state(nextInternalState.newState);
-        return nextInternalState.newState; //
-      }
-    }
   }]);
 
   return Infinite;
@@ -281,94 +281,6 @@ Infinite.defaultProps = {
   styles: {}
 };
 
-Infinite.generateComputedUtilityFunctions = function (props) {
-  var utilities = {};
-  var loadingSpinner = HTMLDivElement;
-
-  utilities.getLoadingSpinnerHeight = function () {
-    var loadingSpinnerHeight = 0;
-    if (loadingSpinner) {
-      loadingSpinnerHeight = loadingSpinner.offsetHeight || 0;
-    }
-    return loadingSpinnerHeight;
-  };
-  if (props.useWindowAsScrollContainer) {
-    utilities.subscribeToScrollListener = function () {
-      window.addEventListener('scroll', Infinite.infiniteHandleScroll);
-    };
-    utilities.unsubscribeFromScrollListener = function () {
-      window.removeEventListener('scroll', Infinite.infiniteHandleScroll);
-    };
-    utilities.nodeScrollListener = function () {};
-    utilities.getScrollTop = function () {
-      return window.pageYOffset;
-    };
-    utilities.setScrollTop = function (top) {
-      window.scroll(window.pageXOffset, top);
-    };
-    utilities.scrollShouldBeIgnored = function () {
-      return false;
-    };
-    utilities.buildScrollableStyle = function () {
-      return {};
-    };
-  } else {
-    utilities.subscribeToScrollListener = function () {};
-    utilities.unsubscribeFromScrollListener = function () {};
-    utilities.nodeScrollListener = Infinite.infiniteHandleScroll;
-    utilities.getScrollTop = function () {
-      return undefined.scrollable ? undefined.scrollable.scrollTop : 0;
-    };
-
-    utilities.setScrollTop = function (top) {
-      if (undefined.scrollable) {
-        undefined.scrollable.scrollTop = top;
-      }
-    };
-    utilities.scrollShouldBeIgnored = function (event) {
-      return event.target !== undefined.scrollable;
-    };
-
-    utilities.buildScrollableStyle = function () {
-      return Object.assign({}, {
-        height: undefined.computedProps.containerHeight,
-        overflowX: 'hidden',
-        overflowY: 'scroll',
-        WebkitOverflowScrolling: 'touch'
-      }, undefined.computedProps.styles.scrollableStyle || {});
-    };
-  }
-  return utilities;
-};
-
-Infinite.recomputeInternalStateFromProps = function (props) {
-  checkProps(props);
-  var computedProps = infiniteHelpers.generateComputedProps(props);
-  var utils = Infinite.generateComputedUtilityFunctions(props);
-
-  var newState = {};
-  newState.numberOfChildren = React.Children.count(computedProps.children);
-  newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
-
-  if (computedProps.isInfiniteLoading !== undefined) {
-    newState.isInfiniteLoading = computedProps.isInfiniteLoading;
-  }
-
-  newState.preloadBatchSize = computedProps.preloadBatchSize;
-  newState.preloadAdditionalHeight = computedProps.preloadAdditionalHeight;
-
-  newState = Object.assign(newState, infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(newState, utils.getScrollTop()));
-
-  console.log('xxxx newState', newState);
-  console.log('xxxx utils', utils);
-  console.log('xxxx computedProps', computedProps);
-  return {
-    computedProps: computedProps,
-    utils: utils,
-    newState: newState
-  };
-};
-
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
@@ -376,13 +288,96 @@ var _initialiseProps = function _initialiseProps() {
   this.preservedScrollState = 0;
   this.loadingSpinnerHeight = 0;
 
+  this.generateComputedUtilityFunctions = function (props) {
+    var utilities = {};
+    utilities.getLoadingSpinnerHeight = function () {
+      var loadingSpinnerHeight = 0;
+      if (_this3.loadingSpinner) {
+        loadingSpinnerHeight = _this3.loadingSpinner.offsetHeight || 0;
+      }
+      return loadingSpinnerHeight;
+    };
+    if (props.useWindowAsScrollContainer) {
+      utilities.subscribeToScrollListener = function () {
+        window.addEventListener('scroll', _this3.infiniteHandleScroll);
+      };
+      utilities.unsubscribeFromScrollListener = function () {
+        window.removeEventListener('scroll', _this3.infiniteHandleScroll);
+      };
+      utilities.nodeScrollListener = function () {};
+      utilities.getScrollTop = function () {
+        return window.pageYOffset;
+      };
+      utilities.setScrollTop = function (top) {
+        window.scroll(window.pageXOffset, top);
+      };
+      utilities.scrollShouldBeIgnored = function () {
+        return false;
+      };
+      utilities.buildScrollableStyle = function () {
+        return {};
+      };
+    } else {
+      utilities.subscribeToScrollListener = function () {};
+      utilities.unsubscribeFromScrollListener = function () {};
+      utilities.nodeScrollListener = _this3.infiniteHandleScroll;
+      utilities.getScrollTop = function () {
+        return _this3.scrollable ? _this3.scrollable.scrollTop : 0;
+      };
+
+      utilities.setScrollTop = function (top) {
+        if (_this3.scrollable) {
+          _this3.scrollable.scrollTop = top;
+        }
+      };
+      utilities.scrollShouldBeIgnored = function (event) {
+        return event.target !== _this3.scrollable;
+      };
+
+      utilities.buildScrollableStyle = function () {
+        return Object.assign({}, {
+          height: _this3.computedProps.containerHeight,
+          overflowX: 'hidden',
+          overflowY: 'scroll',
+          WebkitOverflowScrolling: 'touch'
+        }, _this3.computedProps.styles.scrollableStyle || {});
+      };
+    }
+    return utilities;
+  };
+
+  this.recomputeInternalStateFromProps = function (props) {
+    checkProps(props);
+    var computedProps = infiniteHelpers.generateComputedProps(props);
+    var utils = _this3.generateComputedUtilityFunctions(props);
+
+    var newState = {};
+
+    newState.numberOfChildren = React.Children.count(computedProps.children);
+    newState.infiniteComputer = infiniteHelpers.createInfiniteComputer(computedProps.elementHeight, computedProps.children);
+
+    if (computedProps.isInfiniteLoading !== undefined) {
+      newState.isInfiniteLoading = computedProps.isInfiniteLoading;
+    }
+
+    newState.preloadBatchSize = computedProps.preloadBatchSize;
+    newState.preloadAdditionalHeight = computedProps.preloadAdditionalHeight;
+
+    newState = Object.assign(newState, infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(newState, utils.getScrollTop()));
+
+    return {
+      computedProps: computedProps,
+      utils: utils,
+      newState: newState
+    };
+  };
+
   this.infiniteHandleScroll = function (e) {
-    var utils;
-    if (utils.scrollShouldBeIgnored(e)) {
+    if (_this3.utils.scrollShouldBeIgnored(e)) {
       return;
     }
     _this3.computedProps.handleScroll(_this3.scrollable);
-    _this3.handleScroll(utils.getScrollTop());
+    _this3.handleScroll(_this3.utils.getScrollTop());
   };
 
   this.manageScrollTimeouts = function () {
