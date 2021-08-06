@@ -65,17 +65,9 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'getDerivedStateFromProps',
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    key: 'UNSAFE_componentWillUpdate',
 
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      console.log('xxxx deneme computedProps test', this.computedProps);
-      console.log('xxxx deneme utils test', this.utils);
 
-      this.setState(nextInternalState.newState);
-    }
     // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
     //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
@@ -86,8 +78,6 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
-  }, {
-    key: 'UNSAFE_componentWillUpdate',
     value: function UNSAFE_componentWillUpdate() {
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -97,6 +87,16 @@ var Infinite = function (_React$Component) {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('computedProps', this.computedProps);
+      console.log('utils', this.utils);
+      if (prevState !== nextInternalState) {
+        this.setState(nextInternalState.newState);
+      }
 
       if (!prevProps.useWindowAsScrollContainer && this.props.useWindowAsScrollContainer) {
         this.utils.subscribeToScrollListener();
@@ -116,13 +116,13 @@ var Infinite = function (_React$Component) {
         var newApertureState = infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(this.state, this.utils.getScrollTop());
         this.setState(newApertureState);
       }
-      console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
+      console.log('hasLoadedMoreChildren', hasLoadedMoreChildren);
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
       }
 
-      console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
+      console.log('isMissingVisibleRows', isMissingVisibleRows);
     }
   }, {
     key: 'componentDidMount',

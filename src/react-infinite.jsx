@@ -234,16 +234,7 @@ class Infinite extends React.Component<
       newState
     };
   };
-  getDerivedStateFromProps(nextProps, prevState) {
-    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
-    console.log('xxxx deneme computedProps test', this.computedProps);
-    console.log('xxxx deneme utils test', this.utils);
-
-    this.setState(nextInternalState.newState);
-  }
   // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
   //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
@@ -266,6 +257,16 @@ class Infinite extends React.Component<
     prevState: ReactInfiniteState
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+
+    var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    console.log('computedProps', this.computedProps);
+    console.log('utils', this.utils);
+    if (prevState !== nextInternalState) {
+      this.setState(nextInternalState.newState);
+    }
 
     if (
       !prevProps.useWindowAsScrollContainer &&
@@ -299,7 +300,7 @@ class Infinite extends React.Component<
       );
       this.setState(newApertureState);
     }
-    console.log('xxxx hasLoadedMoreChildren', hasLoadedMoreChildren);
+    console.log('hasLoadedMoreChildren', hasLoadedMoreChildren);
     const isMissingVisibleRows =
       hasLoadedMoreChildren &&
       !this.hasAllVisibleItems() &&
@@ -308,7 +309,7 @@ class Infinite extends React.Component<
       this.onInfiniteLoad();
     }
 
-    console.log('xxxx isMissingVisibleRows', isMissingVisibleRows);
+    console.log('isMissingVisibleRows', isMissingVisibleRows);
   }
 
   componentDidMount() {
