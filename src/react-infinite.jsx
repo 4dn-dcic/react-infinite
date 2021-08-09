@@ -234,17 +234,16 @@ class Infinite extends React.Component<
       newState
     };
   };
-  static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
-    // var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-    if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
-      this.computedProps = nextProps.computedProps;
-      this.utils = nextProps.utils;
-      return { nextData: nextProps.newState };
-    } else {
-      return null;
-    }
-  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   var nextInternalState = Infinite.recomputeInternalStateFromProps(nextProps);
+  //   if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
+  //     this.computedProps = nextInternalState.computedProps;
+  //     this.utils = nextInternalState.utils;
+  //     return nextInternalState.newState;
+  //   } else {
+  //     return null;
+  //   }
+  // }
   // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
   //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
   //   console.log('xxxx nextProps', nextProps);
@@ -262,6 +261,15 @@ class Infinite extends React.Component<
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
+    var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+    console.log('xxxx prevProps', prevProps);
+
+    console.log('xxxx nextInternalState', nextInternalState);
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    if (nextInternalState !== prevProps.state) {
+      this.setState(nextInternalState.newState);
+    }
     if (this.props.displayBottomUpwards) {
       this.preservedScrollState =
         this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -299,7 +307,6 @@ class Infinite extends React.Component<
       );
       this.setState(newApertureState);
     }
-    console.log('hasLoadedMoreChildren', hasLoadedMoreChildren);
     const isMissingVisibleRows =
       hasLoadedMoreChildren &&
       !this.hasAllVisibleItems() &&
@@ -307,8 +314,6 @@ class Infinite extends React.Component<
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
     }
-
-    console.log('isMissingVisibleRows', isMissingVisibleRows);
   }
 
   componentDidMount() {

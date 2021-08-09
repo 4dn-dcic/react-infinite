@@ -67,6 +67,16 @@ var Infinite = function (_React$Component) {
   _createClass(Infinite, [{
     key: 'componentDidUpdate',
 
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //   var nextInternalState = Infinite.recomputeInternalStateFromProps(nextProps);
+    //   if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
+    //     this.computedProps = nextInternalState.computedProps;
+    //     this.utils = nextInternalState.utils;
+    //     return nextInternalState.newState;
+    //   } else {
+    //     return null;
+    //   }
+    // }
     // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
     //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
     //   console.log('xxxx nextProps', nextProps);
@@ -81,6 +91,15 @@ var Infinite = function (_React$Component) {
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+      console.log('xxxx prevProps', prevProps);
+
+      console.log('xxxx nextInternalState', nextInternalState);
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      if (nextInternalState !== prevProps.state) {
+        this.setState(nextInternalState.newState);
+      }
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
       }
@@ -103,13 +122,10 @@ var Infinite = function (_React$Component) {
         var newApertureState = infiniteHelpers.recomputeApertureStateFromOptionsAndScrollTop(this.state, this.utils.getScrollTop());
         this.setState(newApertureState);
       }
-      console.log('hasLoadedMoreChildren', hasLoadedMoreChildren);
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
       }
-
-      console.log('isMissingVisibleRows', isMissingVisibleRows);
     }
   }, {
     key: 'componentDidMount',
@@ -208,19 +224,6 @@ var Infinite = function (_React$Component) {
           })
         )
       );
-    }
-  }], [{
-    key: 'getDerivedStateFromProps',
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
-      // var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-      if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
-        this.computedProps = nextProps.computedProps;
-        this.utils = nextProps.utils;
-        return { nextData: nextProps.newState };
-      } else {
-        return null;
-      }
     }
   }]);
 
