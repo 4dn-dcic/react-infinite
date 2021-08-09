@@ -65,31 +65,31 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
+    key: 'UNSAFE_componentWillReceiveProps',
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      console.log('xxxx nextProps', nextProps);
+
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx computedProps', this.computedProps);
+      console.log('xxxx utils', this.utils);
+      this.setState(nextInternalState.newState);
+    }
+  }, {
     key: 'componentDidUpdate',
-
-    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-    //   console.log('xxxx nextProps', nextProps);
-
-    //   this.computedProps = nextInternalState.computedProps;
-    //   this.utils = nextInternalState.utils;
-    //   console.log('xxxx computedProps', this.computedProps);
-    //   console.log('xxxx utils', this.utils);
-    //   this.setState(nextInternalState.newState);
-    // }
-
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
       console.log('xxxx prevState.numberOfChildren', prevState.numberOfChildren);
       console.log('xxxx this.state.numberOfChildren1', this.state);
 
-      if (this.state.numberOfChildren !== prevState.numberOfChildren) {
-        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-        this.computedProps = nextInternalState.computedProps;
-        this.utils = nextInternalState.utils;
-        console.log('xxxx this.computedProps1', this.computedProps);
-        this.setState(nextInternalState.newState);
-      }
+      // if (this.state.numberOfChildren !== prevState.numberOfChildren) {
+      //   var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+      //   this.computedProps = nextInternalState.computedProps;
+      //   this.utils = nextInternalState.utils;
+      //   console.log('xxxx this.computedProps1', this.computedProps);
+      //   this.setState(nextInternalState.newState);
+      // }
 
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
