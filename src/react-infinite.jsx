@@ -234,17 +234,22 @@ class Infinite extends React.Component<
       newState
     };
   };
-  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-    console.log('xxxx nextProps', nextProps);
+  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+  //   console.log('xxxx nextProps', nextProps);
 
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
-    console.log('xxxx computedProps', this.computedProps);
-    console.log('xxxx utils', this.utils);
-    this.setState(nextInternalState.newState);
+  //   this.computedProps = nextInternalState.computedProps;
+  //   this.utils = nextInternalState.utils;
+  //   console.log('xxxx computedProps', this.computedProps);
+  //   console.log('xxxx utils', this.utils);
+  //   this.setState(nextInternalState.newState);
+  // }
+  UNSAFE_componentWillUpdate() {
+    if (this.props.displayBottomUpwards) {
+      this.preservedScrollState =
+        this.utils.getScrollTop() - this.loadingSpinnerHeight;
+    }
   }
-
   componentDidUpdate(
     prevProps: ReactInfiniteProps,
     prevState: ReactInfiniteState,
@@ -253,17 +258,12 @@ class Infinite extends React.Component<
     console.log('xxxx prevState.numberOfChildren', prevState.numberOfChildren);
     console.log('xxxx this.state.numberOfChildren1', this.state);
 
-    // if (this.state.numberOfChildren !== prevState.numberOfChildren) {
-    //   var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-    //   this.computedProps = nextInternalState.computedProps;
-    //   this.utils = nextInternalState.utils;
-    //   console.log('xxxx this.computedProps1', this.computedProps);
-    //   this.setState(nextInternalState.newState);
-    // }
-
-    if (this.props.displayBottomUpwards) {
-      this.preservedScrollState =
-        this.utils.getScrollTop() - this.loadingSpinnerHeight;
+    if (this.state.numberOfChildren !== prevState.numberOfChildren) {
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx this.computedProps1', this.computedProps);
+      this.setState(nextInternalState.newState);
     }
 
     if (
