@@ -91,10 +91,17 @@ var Infinite = function (_React$Component) {
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
-      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-      console.log('xxxx prevProps', prevProps);
+      if (prevProps !== this.props) {
+        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+        console.log('xxxx nextProps', prevProps);
 
-      console.log('xxxx nextInternalState', nextInternalState);
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        console.log('xxxx computedProps', this.computedProps);
+        console.log('xxxx utils', this.utils);
+        this.setState(nextInternalState.newState);
+      }
+
       this.computedProps = nextInternalState.computedProps;
       this.utils = nextInternalState.utils;
       if (nextInternalState !== prevProps.state) {
