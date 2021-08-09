@@ -237,6 +237,7 @@ class Infinite extends React.Component<
 
   UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
     var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    console.log('xxxx nextProps', nextProps);
 
     this.computedProps = nextInternalState.computedProps;
     this.utils = nextInternalState.utils;
@@ -245,20 +246,13 @@ class Infinite extends React.Component<
     this.setState(nextInternalState.newState);
   }
 
-  // UNSAFE_componentWillUpdate() {
-  //   if (this.props.displayBottomUpwards) {
-  //     this.preservedScrollState =
-  //       this.utils.getScrollTop() - this.loadingSpinnerHeight;
-  //   }
-  // }
-
   componentDidUpdate(
     prevProps: ReactInfiniteProps,
     prevState: ReactInfiniteState
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+    console.log('xxxx prevProps', prevProps);
 
-    // //New Method
     if (this.props.displayBottomUpwards) {
       this.preservedScrollState =
         this.utils.getScrollTop() - this.loadingSpinnerHeight;

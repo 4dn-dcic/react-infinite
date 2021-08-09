@@ -68,6 +68,7 @@ var Infinite = function (_React$Component) {
     key: 'UNSAFE_componentWillReceiveProps',
     value: function UNSAFE_componentWillReceiveProps(nextProps) {
       var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      console.log('xxxx nextProps', nextProps);
 
       this.computedProps = nextInternalState.computedProps;
       this.utils = nextInternalState.utils;
@@ -75,20 +76,12 @@ var Infinite = function (_React$Component) {
       console.log('xxxx utils', this.utils);
       this.setState(nextInternalState.newState);
     }
-
-    // UNSAFE_componentWillUpdate() {
-    //   if (this.props.displayBottomUpwards) {
-    //     this.preservedScrollState =
-    //       this.utils.getScrollTop() - this.loadingSpinnerHeight;
-    //   }
-    // }
-
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+      console.log('xxxx prevProps', prevProps);
 
-      // //New Method
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
       }
