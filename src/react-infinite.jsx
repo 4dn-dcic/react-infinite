@@ -262,7 +262,7 @@ class Infinite extends React.Component<
     prevState: ReactInfiniteState
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
-    console.log('xxxx prevProps', prevProps);
+    console.log('xxxx prevProps1', prevProps);
     if (prevProps.numberOfChildren !== prevState.numberOfChildren) {
       var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
       this.computedProps = nextInternalState.computedProps;

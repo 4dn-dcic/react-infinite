@@ -80,7 +80,7 @@ var Infinite = function (_React$Component) {
 
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
-      console.log('xxxx prevProps', prevProps);
+      console.log('xxxx prevProps1', prevProps);
       if (prevProps.numberOfChildren !== prevState.numberOfChildren) {
         var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
         this.computedProps = nextInternalState.computedProps;
