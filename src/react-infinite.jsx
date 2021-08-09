@@ -245,12 +245,12 @@ class Infinite extends React.Component<
   //   this.setState(nextInternalState.newState);
   // }
 
-  UNSAFE_componentWillUpdate() {
-    if (this.props.displayBottomUpwards) {
-      this.preservedScrollState =
-        this.utils.getScrollTop() - this.loadingSpinnerHeight;
-    }
-  }
+  // UNSAFE_componentWillUpdate() {
+  //   if (this.props.displayBottomUpwards) {
+  //     this.preservedScrollState =
+  //       this.utils.getScrollTop() - this.loadingSpinnerHeight;
+  //   }
+  // }
 
   componentDidUpdate(
     prevProps: ReactInfiniteProps,
@@ -266,6 +266,12 @@ class Infinite extends React.Component<
     console.log('utils', this.utils);
     if (prevState !== nextInternalState) {
       this.setState(nextInternalState.newState);
+    }
+
+    // //New Method
+    if (this.props.displayBottomUpwards) {
+      this.preservedScrollState =
+        this.utils.getScrollTop() - this.loadingSpinnerHeight;
     }
 
     if (

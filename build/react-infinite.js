@@ -65,7 +65,7 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'UNSAFE_componentWillUpdate',
+    key: 'componentDidUpdate',
 
 
     // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
@@ -78,13 +78,13 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
-    value: function UNSAFE_componentWillUpdate() {
-      if (this.props.displayBottomUpwards) {
-        this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
-      }
-    }
-  }, {
-    key: 'componentDidUpdate',
+    // UNSAFE_componentWillUpdate() {
+    //   if (this.props.displayBottomUpwards) {
+    //     this.preservedScrollState =
+    //       this.utils.getScrollTop() - this.loadingSpinnerHeight;
+    //   }
+    // }
+
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
@@ -96,6 +96,11 @@ var Infinite = function (_React$Component) {
       console.log('utils', this.utils);
       if (prevState !== nextInternalState) {
         this.setState(nextInternalState.newState);
+      }
+
+      // //New Method
+      if (this.props.displayBottomUpwards) {
+        this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
       }
 
       if (!prevProps.useWindowAsScrollContainer && this.props.useWindowAsScrollContainer) {
