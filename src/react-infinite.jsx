@@ -235,15 +235,15 @@ class Infinite extends React.Component<
     };
   };
 
-  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
 
-  //   this.computedProps = nextInternalState.computedProps;
-  //   this.utils = nextInternalState.utils;
-  //   console.log('xxxx computedProps', this.computedProps);
-  //   console.log('xxxx utils', this.utils);
-  //   this.setState(nextInternalState.newState);
-  // }
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    console.log('xxxx computedProps', this.computedProps);
+    console.log('xxxx utils', this.utils);
+    this.setState(nextInternalState.newState);
+  }
 
   // UNSAFE_componentWillUpdate() {
   //   if (this.props.displayBottomUpwards) {
@@ -257,16 +257,6 @@ class Infinite extends React.Component<
     prevState: ReactInfiniteState
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
-
-    var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-
-    this.computedProps = nextInternalState.computedProps;
-    this.utils = nextInternalState.utils;
-    console.log('computedProps', this.computedProps);
-    console.log('utils', this.utils);
-    if (prevState !== nextInternalState) {
-      this.setState(nextInternalState.newState);
-    }
 
     // //New Method
     if (this.props.displayBottomUpwards) {
