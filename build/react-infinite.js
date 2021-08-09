@@ -78,8 +78,18 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
-    value: function componentDidUpdate(prevProps, prevState, nextProps) {
+    value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
+      console.log('xxxx prevProps', prevProps);
+      console.log('xxxx this.props', this.props);
+
+      if (prevProps !== this.props) {
+        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        console.log('xxxx this.computedProps', this.computedProps);
+        this.setState(nextInternalState.newState);
+      }
 
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -106,12 +116,6 @@ var Infinite = function (_React$Component) {
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
-      }
-      if (prevProps !== this.props) {
-        var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-        this.computedProps = nextInternalState.computedProps;
-        this.utils = nextInternalState.utils;
-        this.setState(nextInternalState.newState);
       }
     }
   }, {
