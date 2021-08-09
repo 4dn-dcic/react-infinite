@@ -83,7 +83,7 @@ var Infinite = function (_React$Component) {
       console.log('xxxx prevProps', prevProps);
       console.log('xxxx this.props', this.props);
 
-      if (prevProps !== this.props) {
+      if (prevProps.numberOfChildren !== this.props.numberOfChildren) {
         var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
         this.computedProps = nextInternalState.computedProps;
         this.utils = nextInternalState.utils;
