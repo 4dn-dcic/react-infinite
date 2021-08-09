@@ -82,7 +82,10 @@ var Infinite = function (_React$Component) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
       console.log('xxxx prevProps', prevProps);
       if (prevProps.numberOfChildren !== prevState.numberOfChildren) {
-        console.log('xxxx yeni değer', prevProps);
+        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        this.setState(nextInternalState.newState);
       }
 
       if (this.props.displayBottomUpwards) {
