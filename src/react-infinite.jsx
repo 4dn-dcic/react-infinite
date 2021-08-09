@@ -296,12 +296,12 @@ class Infinite extends React.Component<
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
     }
-    if (prevProps !== this.props) {
-      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      this.setState(nextInternalState.newState);
-    }
+    // if (prevProps !== this.props) {
+    //   var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+    //   this.computedProps = nextInternalState.computedProps;
+    //   this.utils = nextInternalState.utils;
+    //   this.setState(nextInternalState.newState);
+    // }
   }
 
   componentDidMount() {
