@@ -65,8 +65,18 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'componentDidUpdate',
+    key: 'getSnapshotBeforeUpdate',
+    value: function getSnapshotBeforeUpdate(nextProps, prevState) {
+      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      console.log('xxxx nextProps', nextProps);
 
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      console.log('xxxx computedProps', this.computedProps);
+      console.log('xxxx utils', this.utils);
+      this.setState(nextInternalState.newState);
+    }
     // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
     //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
     //   console.log('xxxx nextProps', nextProps);
@@ -78,15 +88,10 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
+  }, {
+    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
-      console.log('xxxx prevProps1', prevProps);
-      if (prevProps.numberOfChildren !== prevState.numberOfChildren) {
-        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-        this.computedProps = nextInternalState.computedProps;
-        this.utils = nextInternalState.utils;
-        this.setState(nextInternalState.newState);
-      }
 
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
@@ -215,20 +220,6 @@ var Infinite = function (_React$Component) {
           })
         )
       );
-    }
-  }], [{
-    key: 'getDerivedStateFromProps',
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
-      // var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-      // if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
-      //   console.log('xxxx nextProps', nextProps);
-      //   this.computedProps = nextInternalState.computedProps;
-      //   this.utils = nextInternalState.utils;
-      //   return nextInternalState.newState;
-      // } else {
-      //   return null;
-      // }
     }
   }]);
 
