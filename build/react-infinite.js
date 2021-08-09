@@ -65,18 +65,8 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'getSnapshotBeforeUpdate',
-    value: function getSnapshotBeforeUpdate(nextProps, prevState) {
-      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
-      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-      console.log('xxxx nextProps', nextProps);
+    key: 'componentDidUpdate',
 
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      console.log('xxxx computedProps', this.computedProps);
-      console.log('xxxx utils', this.utils);
-      this.setState(nextInternalState.newState);
-    }
     // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
     //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
     //   console.log('xxxx nextProps', nextProps);
@@ -88,8 +78,6 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
-  }, {
-    key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
@@ -220,6 +208,19 @@ var Infinite = function (_React$Component) {
           })
         )
       );
+    }
+  }], [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
+      // var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      if (nextProps.numberOfChildren !== prevState.numberOfChildren) {
+        this.computedProps = nextProps.computedProps;
+        this.utils = nextProps.utils;
+        return { nextData: nextProps.newState };
+      } else {
+        return null;
+      }
     }
   }]);
 
