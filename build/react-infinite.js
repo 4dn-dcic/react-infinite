@@ -102,11 +102,6 @@ var Infinite = function (_React$Component) {
         this.setState(nextInternalState.newState);
       }
 
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      if (nextInternalState !== prevProps.state) {
-        this.setState(nextInternalState.newState);
-      }
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
       }
