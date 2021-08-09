@@ -251,12 +251,6 @@ class Infinite extends React.Component<
   ) {
     this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
-    if (prevProps !== this.props) {
-      var nextInternalState = this.recomputeInternalStateFromProps(prevState);
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      this.setState(nextInternalState.newState);
-    }
 
     if (this.props.displayBottomUpwards) {
       this.preservedScrollState =
@@ -301,6 +295,12 @@ class Infinite extends React.Component<
       !this.state.isInfiniteLoading;
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
+    }
+    if (prevProps !== this.props) {
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      this.setState(nextInternalState.newState);
     }
   }
 
