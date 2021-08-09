@@ -78,7 +78,7 @@ var Infinite = function (_React$Component) {
     //   this.setState(nextInternalState.newState);
     // }
 
-    value: function componentDidUpdate(prevProps, prevState) {
+    value: function componentDidUpdate(prevProps, prevState, nextProps) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
       if (this.props.displayBottomUpwards) {
@@ -107,12 +107,12 @@ var Infinite = function (_React$Component) {
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
       }
-      // if (prevProps !== this.props) {
-      //   var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-      //   this.computedProps = nextInternalState.computedProps;
-      //   this.utils = nextInternalState.utils;
-      //   this.setState(nextInternalState.newState);
-      // }
+      if (prevProps !== this.props) {
+        var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        this.setState(nextInternalState.newState);
+      }
     }
   }, {
     key: 'componentDidMount',
