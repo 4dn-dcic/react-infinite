@@ -210,6 +210,11 @@ var Infinite = function (_React$Component) {
         )
       );
     }
+  }], [{
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      console.log('xxxx getDerivedStateFromPropsnextProps', nextProps);
+    }
   }]);
 
   return Infinite;
