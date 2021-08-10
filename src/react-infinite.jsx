@@ -234,7 +234,7 @@ class Infinite extends React.Component<
       newState
     };
   };
-  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+  shouldComponentUpdate(nextProps: ReactInfiniteProps) {
     var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
     console.log('xxxx nextProps', nextProps);
 

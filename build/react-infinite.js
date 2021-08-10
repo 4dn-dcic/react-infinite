@@ -65,8 +65,8 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'UNSAFE_componentWillReceiveProps',
-    value: function UNSAFE_componentWillReceiveProps(nextProps) {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
       var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
       console.log('xxxx nextProps', nextProps);
 
