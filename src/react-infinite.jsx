@@ -242,9 +242,9 @@ class Infinite extends React.Component<
     this.setState(nextInternalState.newState);
   }
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.value !== this.props.value) {
+    if (this.state.value !== nextState.value) {
       var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-
+      console.log('xxxx nextInternalState', nextInternalState);
       this.computedProps = nextInternalState.computedProps;
       this.utils = nextInternalState.utils;
       this.setState(nextInternalState.newState);
