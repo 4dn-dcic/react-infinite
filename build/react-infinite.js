@@ -221,13 +221,10 @@ var Infinite = function (_React$Component) {
       var dataLengthChanged = nextProps.dataLength !== prevState.prevDataLength;
       console.log('nextProps', nextProps);
       console.log('prevState', prevState);
-      // reset when data changes
-      if (dataLengthChanged) {
-        return {
-          newState: nextProps
-        };
-      }
-      return null;
+
+      return {
+        newState: nextProps
+      };
     }
   }]);
 
