@@ -65,18 +65,6 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
-    key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps) {
-      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-      console.log('xxxx nextProps', nextProps);
-
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      console.log('xxxx computedProps', this.computedProps);
-      console.log('xxxx utils', this.utils);
-      this.setState(nextInternalState.newState);
-    }
-  }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
@@ -215,6 +203,31 @@ var Infinite = function (_React$Component) {
           })
         )
       );
+    }
+  }], [{
+    key: 'getDerivedStateFromProps',
+
+    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    //   console.log('xxxx nextProps', nextProps);
+
+    //   this.computedProps = nextInternalState.computedProps;
+    //   this.utils = nextInternalState.utils;
+    //   console.log('xxxx computedProps', this.computedProps);
+    //   console.log('xxxx utils', this.utils);
+    //   this.setState(nextInternalState.newState);
+    // }
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      var dataLengthChanged = nextProps.dataLength !== prevState.prevDataLength;
+      console.log('nextProps', nextProps);
+      console.log('prevState', prevState);
+      // reset when data changes
+      if (dataLengthChanged) {
+        return {
+          newState: nextProps
+        };
+      }
+      return null;
     }
   }]);
 
