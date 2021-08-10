@@ -223,7 +223,7 @@ var Infinite = function (_React$Component) {
       console.log('prevState', prevState);
 
       return {
-        newState: nextProps
+        nextProps: nextProps
       };
     }
   }]);

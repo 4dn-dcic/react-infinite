@@ -250,7 +250,7 @@ class Infinite extends React.Component<
     console.log('prevState', prevState);
 
     return {
-      newState: nextProps
+      nextProps
     };
   }
   componentDidUpdate(
