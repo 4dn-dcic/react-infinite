@@ -234,16 +234,12 @@ class Infinite extends React.Component<
       newState
     };
   };
-  // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-  //   console.log('xxxx EskinextProps', nextProps);
-
-  //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-  //   console.log('xxxx nextInternalState', nextInternalState);
-
-  //   this.computedProps = nextInternalState.computedProps;
-  //   this.utils = nextInternalState.utils;
-  //   this.setState(nextInternalState.newState);
-  // }
+  UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    this.computedProps = nextInternalState.computedProps;
+    this.utils = nextInternalState.utils;
+    this.setState(nextInternalState.newState);
+  }
 
   componentDidUpdate(
     prevProps: ReactInfiniteProps,
@@ -294,14 +290,6 @@ class Infinite extends React.Component<
       !this.state.isInfiniteLoading;
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
-    }
-    const updateData = hasLoadedMoreChildren && !isMissingVisibleRows;
-    if (updateData) {
-      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-      console.log('xxxx nextInternalState', nextInternalState);
-      this.computedProps = nextInternalState.computedProps;
-      this.utils = nextInternalState.utils;
-      this.setState(nextInternalState.newState);
     }
   }
 

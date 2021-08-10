@@ -65,19 +65,15 @@ var Infinite = function (_React$Component) {
 
 
   _createClass(Infinite, [{
+    key: 'UNSAFE_componentWillReceiveProps',
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
+      var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      this.setState(nextInternalState.newState);
+    }
+  }, {
     key: 'componentDidUpdate',
-
-    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    //   console.log('xxxx EskinextProps', nextProps);
-
-    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-    //   console.log('xxxx nextInternalState', nextInternalState);
-
-    //   this.computedProps = nextInternalState.computedProps;
-    //   this.utils = nextInternalState.utils;
-    //   this.setState(nextInternalState.newState);
-    // }
-
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
@@ -106,14 +102,6 @@ var Infinite = function (_React$Component) {
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
-      }
-      var updateData = hasLoadedMoreChildren && !isMissingVisibleRows;
-      if (updateData) {
-        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-        console.log('xxxx nextInternalState', nextInternalState);
-        this.computedProps = nextInternalState.computedProps;
-        this.utils = nextInternalState.utils;
-        this.setState(nextInternalState.newState);
       }
     }
   }, {
