@@ -244,10 +244,6 @@ class Infinite extends React.Component<
   //   this.utils = nextInternalState.utils;
   //   this.setState(nextInternalState.newState);
   // }
-  static getDerivedStateFromProps(nextProps: ReactInfiniteProps) {
-    console.log('xxxx nextProps', nextProps);
-    return nextProps;
-  }
 
   componentDidUpdate(
     prevProps: ReactInfiniteProps,
@@ -298,6 +294,14 @@ class Infinite extends React.Component<
       !this.state.isInfiniteLoading;
     if (isMissingVisibleRows) {
       this.onInfiniteLoad();
+    }
+    const updateData = hasLoadedMoreChildren && !isMissingVisibleRows;
+    if (updateData) {
+      var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+      console.log('xxxx nextInternalState', nextInternalState);
+      this.computedProps = nextInternalState.computedProps;
+      this.utils = nextInternalState.utils;
+      this.setState(nextInternalState.newState);
     }
   }
 

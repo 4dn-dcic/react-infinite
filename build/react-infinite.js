@@ -66,6 +66,18 @@ var Infinite = function (_React$Component) {
 
   _createClass(Infinite, [{
     key: 'componentDidUpdate',
+
+    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
+    //   console.log('xxxx EskinextProps', nextProps);
+
+    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
+    //   console.log('xxxx nextInternalState', nextInternalState);
+
+    //   this.computedProps = nextInternalState.computedProps;
+    //   this.utils = nextInternalState.utils;
+    //   this.setState(nextInternalState.newState);
+    // }
+
     value: function componentDidUpdate(prevProps, prevState) {
       this.loadingSpinnerHeight = this.utils.getLoadingSpinnerHeight();
 
@@ -94,6 +106,14 @@ var Infinite = function (_React$Component) {
       var isMissingVisibleRows = hasLoadedMoreChildren && !this.hasAllVisibleItems() && !this.state.isInfiniteLoading;
       if (isMissingVisibleRows) {
         this.onInfiniteLoad();
+      }
+      var updateData = hasLoadedMoreChildren && !isMissingVisibleRows;
+      if (updateData) {
+        var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+        console.log('xxxx nextInternalState', nextInternalState);
+        this.computedProps = nextInternalState.computedProps;
+        this.utils = nextInternalState.utils;
+        this.setState(nextInternalState.newState);
       }
     }
   }, {
@@ -193,23 +213,6 @@ var Infinite = function (_React$Component) {
           })
         )
       );
-    }
-  }], [{
-    key: 'getDerivedStateFromProps',
-
-    // UNSAFE_componentWillReceiveProps(nextProps: ReactInfiniteProps) {
-    //   console.log('xxxx EskinextProps', nextProps);
-
-    //   var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
-    //   console.log('xxxx nextInternalState', nextInternalState);
-
-    //   this.computedProps = nextInternalState.computedProps;
-    //   this.utils = nextInternalState.utils;
-    //   this.setState(nextInternalState.newState);
-    // }
-    value: function getDerivedStateFromProps(nextProps) {
-      console.log('xxxx nextProps', nextProps);
-      return nextProps;
     }
   }]);
 
