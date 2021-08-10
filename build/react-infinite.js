@@ -71,13 +71,14 @@ var Infinite = function (_React$Component) {
       console.log('xxxx prevState.numberOfChildren', prevState.numberOfChildren);
       console.log('xxxx this.state.numberOfChildren1', this.state);
 
-      // if (this.state.numberOfChildren !== prevState.numberOfChildren) {
-      //   var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
-      //   this.computedProps = nextInternalState.computedProps;
-      //   this.utils = nextInternalState.utils;
-      //   console.log('xxxx this.computedProps1', this.computedProps);
-      //   this.setState(nextInternalState.newState);
-      // }
+      if (this.state.nextProps.numberOfChildren !== prevState.numberOfChildren) {
+        var asd = this.state.nextProps;
+        // var nextInternalState = this.recomputeInternalStateFromProps(prevProps);
+        // this.computedProps = nextInternalState.computedProps;
+        // this.utils = nextInternalState.utils;
+        // console.log('xxxx this.computedProps1', this.computedProps);
+        this.setState(asd);
+      }
 
       if (this.props.displayBottomUpwards) {
         this.preservedScrollState = this.utils.getScrollTop() - this.loadingSpinnerHeight;
