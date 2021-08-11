@@ -70,7 +70,6 @@ var Infinite = function (_React$Component) {
       var nextInternalState = this.recomputeInternalStateFromProps(nextProps);
       this.computedProps = nextInternalState.computedProps;
       this.utils = nextInternalState.utils;
-      console.log('info', nextInternalState.newState);
       this.setState(nextInternalState.newState);
     }
   }, {
