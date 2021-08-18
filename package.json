@@ -1,5 +1,5 @@
 {
-  "name": "react-infinite",
+  "name": "@4dn-dcic/react-infinite",
   "version": "1.1.4",
   "description": "A browser-ready efficient scrolling container based on UITableView",
   "main": "build/react-infinite.js",
