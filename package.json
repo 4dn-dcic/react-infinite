@@ -106,9 +106,9 @@
     "object-assign": "4.0.1"
   },
   "peerDependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "prop-types": "^15.5.0"
+    "react": ">=16.2.0",
+    "react-dom": ">=16.2.0",
+    "prop-types": ">=15.5.0"
   },
   "browserify": {
     "transform": [
