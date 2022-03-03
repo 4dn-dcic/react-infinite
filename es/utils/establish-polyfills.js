@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
   A number of polyfills for native functions are consolidated

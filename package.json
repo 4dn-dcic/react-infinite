@@ -27,8 +27,6 @@
     "typecheck": "flow version && flow check",
     "verify": "npm test && npm run typecheck && npm run lint",
     "preversion": "npm run verify",
-    "lint-staged": "lint-staged",
-    "precommit": "lint-staged",
     "build": "npx babel ./src --out-dir ./es --env-name esm",
     "prepublish": "npm run build"
   },
