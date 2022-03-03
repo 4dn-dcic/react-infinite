@@ -1,9 +1,16 @@
 {
-  "presets": ["es2015", "flow", "react"],
-  "plugins": ["transform-class-properties", "transform-object-rest-spread"],
-  "env": {
-    "production": {
-      "plugins": ["transform-react-remove-prop-types"]
-    }
-  }
+  "presets": [
+      // We don"t need to convert import/export statements.
+      // @see https://stackoverflow.com/questions/63563485/how-can-i-preserve-dynamic-import-statements-with-babel-preset-env
+      ["@babel/preset-env", { "modules": "auto" }],
+      "@babel/preset-flow",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-flow-strip-types",
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "comments": true
 }
