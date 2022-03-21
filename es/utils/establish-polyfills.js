@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
   A number of polyfills for native functions are consolidated
@@ -6,7 +6,6 @@
   because Flow is designed to make its type refinements
   with these native functions.
  */
-
 if (!Object.assign) {
   Object.assign = require('object-assign');
 }

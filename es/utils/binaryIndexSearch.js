@@ -5,12 +5,16 @@ var opts = {
   CLOSEST_HIGHER: 2
 };
 
-var binaryIndexSearch = function binaryIndexSearch(array /* : Array<number> */
-, item /* : number */
-, opt /* : number */
-) /* : ?number */{
+var binaryIndexSearch = function binaryIndexSearch(array
+/* : Array<number> */
+, item
+/* : number */
+, opt
+/* : number */
+)
+/* : ?number */
+{
   var index;
-
   var high = array.length - 1,
       low = 0,
       middle,
